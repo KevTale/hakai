@@ -1,0 +1,169 @@
+{
+  "version": "4",
+  "specifiers": {
+    "jsr:@cliffy/ansi@1.0.0-rc.7": "1.0.0-rc.7",
+    "jsr:@cliffy/command@^1.0.0-rc.7": "1.0.0-rc.7",
+    "jsr:@cliffy/flags@1.0.0-rc.7": "1.0.0-rc.7",
+    "jsr:@cliffy/internal@1.0.0-rc.7": "1.0.0-rc.7",
+    "jsr:@cliffy/keycode@1.0.0-rc.7": "1.0.0-rc.7",
+    "jsr:@cliffy/prompt@^1.0.0-rc.7": "1.0.0-rc.7",
+    "jsr:@cliffy/table@1.0.0-rc.7": "1.0.0-rc.7",
+    "jsr:@std/assert@1": "1.0.8",
+    "jsr:@std/assert@~1.0.6": "1.0.8",
+    "jsr:@std/encoding@~1.0.5": "1.0.5",
+    "jsr:@std/fmt@^1.0.3": "1.0.3",
+    "jsr:@std/fmt@~1.0.2": "1.0.3",
+    "jsr:@std/fs@^1.0.5": "1.0.5",
+    "jsr:@std/internal@^1.0.5": "1.0.5",
+    "jsr:@std/path@^1.0.7": "1.0.8",
+    "jsr:@std/path@^1.0.8": "1.0.8",
+    "jsr:@std/path@~1.0.6": "1.0.8",
+    "jsr:@std/text@~1.0.7": "1.0.8",
+    "npm:create-next-app@latest": "15.0.3"
+  },
+  "jsr": {
+    "@cliffy/ansi@1.0.0-rc.7": {
+      "integrity": "f71c921cce224c13d322e5cedba4f38e8f7354c7d855c9cb22729362a53f25aa",
+      "dependencies": [
+        "jsr:@cliffy/internal",
+        "jsr:@std/encoding"
+      ]
+    },
+    "@cliffy/command@1.0.0-rc.7": {
+      "integrity": "1288808d7a3cd18b86c24c2f920e47a6d954b7e23cadc35c8cbd78f8be41f0cd",
+      "dependencies": [
+        "jsr:@cliffy/flags",
+        "jsr:@cliffy/internal",
+        "jsr:@cliffy/table",
+        "jsr:@std/fmt@~1.0.2",
+        "jsr:@std/text"
+      ]
+    },
+    "@cliffy/flags@1.0.0-rc.7": {
+      "integrity": "318d9be98f6a6417b108e03dec427dea96cdd41a15beb21d2554ae6da450a781",
+      "dependencies": [
+        "jsr:@std/text"
+      ]
+    },
+    "@cliffy/internal@1.0.0-rc.7": {
+      "integrity": "10412636ab3e67517d448be9eaab1b70c88eba9be22617b5d146257a11cc9b17"
+    },
+    "@cliffy/keycode@1.0.0-rc.7": {
+      "integrity": "5b3f6c33994e81a76b79f108b1989642ac22705840da33781f7972d7dff05503"
+    },
+    "@cliffy/prompt@1.0.0-rc.7": {
+      "integrity": "a9cbd13acd8073558447cae8ca4cf593c09d23bcbe429cc63346920c21187b83",
+      "dependencies": [
+        "jsr:@cliffy/ansi",
+        "jsr:@cliffy/internal",
+        "jsr:@cliffy/keycode",
+        "jsr:@std/assert@~1.0.6",
+        "jsr:@std/fmt@~1.0.2",
+        "jsr:@std/path@~1.0.6",
+        "jsr:@std/text"
+      ]
+    },
+    "@cliffy/table@1.0.0-rc.7": {
+      "integrity": "9fdd9776eda28a0b397981c400eeb1aa36da2371b43eefe12e6ff555290e3180",
+      "dependencies": [
+        "jsr:@std/fmt@~1.0.2"
+      ]
+    },
+    "@std/assert@1.0.8": {
+      "integrity": "ebe0bd7eb488ee39686f77003992f389a06c3da1bbd8022184804852b2fa641b",
+      "dependencies": [
+        "jsr:@std/internal"
+      ]
+    },
+    "@std/encoding@1.0.5": {
+      "integrity": "ecf363d4fc25bd85bd915ff6733a7e79b67e0e7806334af15f4645c569fefc04"
+    },
+    "@std/fmt@1.0.3": {
+      "integrity": "97765c16aa32245ff4e2204ecf7d8562496a3cb8592340a80e7e554e0bb9149f"
+    },
+    "@std/fs@1.0.5": {
+      "integrity": "41806ad6823d0b5f275f9849a2640d87e4ef67c51ee1b8fb02426f55e02fd44e",
+      "dependencies": [
+        "jsr:@std/path@^1.0.7"
+      ]
+    },
+    "@std/internal@1.0.5": {
+      "integrity": "54a546004f769c1ac9e025abd15a76b6671ddc9687e2313b67376125650dc7ba"
+    },
+    "@std/path@1.0.8": {
+      "integrity": "548fa456bb6a04d3c1a1e7477986b6cffbce95102d0bb447c67c4ee70e0364be"
+    },
+    "@std/text@1.0.8": {
+      "integrity": "40ba34caa095f393e78796e5eda37b8b4e2cc6cfd6f51f34658ad7487b1451e4"
+    }
+  },
+  "npm": {
+    "create-next-app@15.0.3": {
+      "integrity": "sha512-WJTW/JsnUxx62s0ldTf9DmT7249TheKoUNHd5MiNenxyC3NHKC5vTOGpO5DNkeDhW41da0PD1+9swUKXxXsC0Q=="
+    }
+  },
+  "remote": {
+    "https://deno.land/x/openai@v4.53.0/_shims/MultipartBody.ts": "fe06a56b54ae358c9cf99823096e34b36795fdba2e17513f0e9539210edd797d",
+    "https://deno.land/x/openai@v4.53.0/_shims/mod.ts": "2e253cb26bfa7060bd37e45626e60e4bf3e7b3fb3e0f559fdfdeef94c73f9372",
+    "https://deno.land/x/openai@v4.53.0/core.ts": "4d78de4c114f5048120eb34c4e94286e69e9c1453cb03791296e79e0e5713bc2",
+    "https://deno.land/x/openai@v4.53.0/error.ts": "a8721373ee2bb58af749b537af4adf320f73b576b9f4263072e98c4a099578ad",
+    "https://deno.land/x/openai@v4.53.0/lib/AbstractAssistantStreamRunner.ts": "2e7a0a6c3dc541d8eea15f0c2c6c394a4373458707103c210a4c7d1ddb04f5b7",
+    "https://deno.land/x/openai@v4.53.0/lib/AbstractChatCompletionRunner.ts": "04e896780c3ac2a82de55e17823d6fef1e49ea7632d998149986ae45d2eb0c47",
+    "https://deno.land/x/openai@v4.53.0/lib/AssistantStream.ts": "00257f487b45d1f0d4edf859da067c0d48e65b1b08400004a54ce572611d0cb2",
+    "https://deno.land/x/openai@v4.53.0/lib/ChatCompletionRunner.ts": "0d1cc40d99cd64b7d573ab95f9cb75750f24f9829da91e12573122842985a2d0",
+    "https://deno.land/x/openai@v4.53.0/lib/ChatCompletionStream.ts": "e5721b3a8c1edb8442c4ab11db947ae2437c6fc999fc2b53d3b1f4b3c27b3549",
+    "https://deno.land/x/openai@v4.53.0/lib/ChatCompletionStreamingRunner.ts": "9bcaae3760dd5f9b54d5d4b2ba79b8731bb3dc79214c26e5d0bbdfe809747dd2",
+    "https://deno.land/x/openai@v4.53.0/lib/RunnableFunction.ts": "f45a16776de983da6b65e5748eb2c581b6ea9d3849bda0026f24659cf0be2d2c",
+    "https://deno.land/x/openai@v4.53.0/lib/Util.ts": "aa555aecdbba8b0ae2e8a982a6797cabc0942fa0d2e99ce629d243d9032941b8",
+    "https://deno.land/x/openai@v4.53.0/lib/chatCompletionUtils.ts": "4991d3e698a54f8e4273eb0f1d73851f7ba549a0a32fabbcd739627677003cb9",
+    "https://deno.land/x/openai@v4.53.0/lib/jsonschema.ts": "ed31a7861e19e505c43aa7612579b2739243ee8e8dd47ccb5f8908fa5ff3b5f0",
+    "https://deno.land/x/openai@v4.53.0/mod.ts": "e4dc0441bfd7c750dc92f4b5c50b3eb07167484d51f353656ce4604e0ae29f39",
+    "https://deno.land/x/openai@v4.53.0/pagination.ts": "02a6737ca6c987cab6effa2788327d022b9e0edc95dd98db0be986383f484e22",
+    "https://deno.land/x/openai@v4.53.0/resource.ts": "c496dbda8dc6324d25fcef3d7233310935259d6aa0baf4b0d95039e4913f6380",
+    "https://deno.land/x/openai@v4.53.0/resources/audio/audio.ts": "baddf217421e2c09aa67d6977d9d98bc119edb7167ae6fd3e821778d8c702f19",
+    "https://deno.land/x/openai@v4.53.0/resources/audio/speech.ts": "5a472cf379bdacc20a4f9f9af1588c948c1cf3eb27858742d7ba56493f18fd67",
+    "https://deno.land/x/openai@v4.53.0/resources/audio/transcriptions.ts": "6cbdf36139d4606289ea0724155d25499f6af3531a5f2073e44d3d87718314df",
+    "https://deno.land/x/openai@v4.53.0/resources/audio/translations.ts": "329dfbab7c3ae7a9244379735f113008b5cd959e791076a2f26c01bf83ef998e",
+    "https://deno.land/x/openai@v4.53.0/resources/batches.ts": "c74d0c40fd748fae60107297a10a62a1a98a646ac2a1b20e9be8499bdceeda57",
+    "https://deno.land/x/openai@v4.53.0/resources/beta/assistants.ts": "fef426851227af9b7d504af0e44ff3a6f371dc2f44ce6c742ee4097bcabee981",
+    "https://deno.land/x/openai@v4.53.0/resources/beta/beta.ts": "2e4c2ad66515f2ec5a1e3a2ccb6f29425b5a06bf2b8a600efb3e4303e61e516a",
+    "https://deno.land/x/openai@v4.53.0/resources/beta/chat/chat.ts": "80dc8786a4b895e9fb152495496f44ac669e95fbb9c2f5a3c0bd379f408b1e1c",
+    "https://deno.land/x/openai@v4.53.0/resources/beta/chat/completions.ts": "5e15cb9095f34d2a51e6e79a83dc5a53dc32e9ab99e607ba59732271612ffd19",
+    "https://deno.land/x/openai@v4.53.0/resources/beta/threads/messages.ts": "1bc3c64b57179fa2689156379bb6407f1a699ee28bfc1755f5f6826265ac5803",
+    "https://deno.land/x/openai@v4.53.0/resources/beta/threads/runs/runs.ts": "bc8cc5cbed02644358ec05073b5637e486b82b74051afbcd56953052a7f2f2e4",
+    "https://deno.land/x/openai@v4.53.0/resources/beta/threads/runs/steps.ts": "51d85d9618f79a38d491c56e1aa8d43b943432ee8f41ae726006a4ec7fc25074",
+    "https://deno.land/x/openai@v4.53.0/resources/beta/threads/threads.ts": "7d775ae576b45fe70238b33ca2be15b149d3b3b43b0fa32a9ed9079c8ad9cdb9",
+    "https://deno.land/x/openai@v4.53.0/resources/beta/vector-stores/file-batches.ts": "b1f53967214c8cec017b20bfa6310061608b3ef278f0fec21b53104b7fe82f91",
+    "https://deno.land/x/openai@v4.53.0/resources/beta/vector-stores/files.ts": "d8f8ea175b6ec1524226eade57240e68e234c98ddff12e9c8a2f7f532cb9d89f",
+    "https://deno.land/x/openai@v4.53.0/resources/beta/vector-stores/vector-stores.ts": "a3b3e0f7704fbd8ba22c76e401ca4e8375b55cdf5f14460f00f62e8004b41934",
+    "https://deno.land/x/openai@v4.53.0/resources/chat/chat.ts": "175eb0092c40450400e5942c3b4661d52a55b1ff1240449a28fc705182505c93",
+    "https://deno.land/x/openai@v4.53.0/resources/chat/completions.ts": "6550395bcf8f8fa1b52884d27496ea23119ba4d8c64a771b7c0dc7f52fc44e64",
+    "https://deno.land/x/openai@v4.53.0/resources/chat/mod.ts": "533faa7d352b1291cac0200a91e5c638361070285336631a76a0a26debc99d60",
+    "https://deno.land/x/openai@v4.53.0/resources/completions.ts": "c8b2569f34b26205b0d9d348e594586d3ead6571caf84920171dd5b7a057322d",
+    "https://deno.land/x/openai@v4.53.0/resources/embeddings.ts": "2a28c666fe9c42bb860bdfa1b27c4aae96c548159aa7e7030a384cfbb00a7465",
+    "https://deno.land/x/openai@v4.53.0/resources/files.ts": "8b733524f9c3afc5b31646749de92d81679b62a130c9715b3782aa9d30ced00c",
+    "https://deno.land/x/openai@v4.53.0/resources/fine-tuning/fine-tuning.ts": "5cb89d96fc6d914ae2d68257a4d08a1f12c140c12b7892a14393177ca9c4ca2b",
+    "https://deno.land/x/openai@v4.53.0/resources/fine-tuning/jobs/checkpoints.ts": "d5a62d828186fb54b50ac2aa0f82a8f9b0c66a7ece0728e79e30cf6e19251bdf",
+    "https://deno.land/x/openai@v4.53.0/resources/fine-tuning/jobs/jobs.ts": "bbc91853e90d0568624c15755a32220779e086bd9917778b54dcaa104a817413",
+    "https://deno.land/x/openai@v4.53.0/resources/images.ts": "21ec14b419819914398f4bc2575608a938a298b77357b0bc17cbdbfb624a2280",
+    "https://deno.land/x/openai@v4.53.0/resources/mod.ts": "e077965c210ee091bd88b5ac44269bce163b4f31a48e1c5403320a70ffe356a5",
+    "https://deno.land/x/openai@v4.53.0/resources/models.ts": "fc8620e0d93158560be0e941bbb298870c7f85515ec2a411602fb46a1269ea93",
+    "https://deno.land/x/openai@v4.53.0/resources/moderations.ts": "828dbc64a89c361299f6d169cf0d04736e22d9caf4e6f44acce58f269caf1118",
+    "https://deno.land/x/openai@v4.53.0/resources/shared.ts": "3e8f4151a77d5dbe1e76ac2af061dc49463790adca54ad6e242a21c7c85114ec",
+    "https://deno.land/x/openai@v4.53.0/resources/uploads/parts.ts": "261610445bbbacdf913aec27d9084dbdd95c524b5eb74c0a3b9cb650d6135584",
+    "https://deno.land/x/openai@v4.53.0/resources/uploads/uploads.ts": "db02e2c94315ad657909bcbf45e2c74c6de8c4b5afba34639ce373c437296cd9",
+    "https://deno.land/x/openai@v4.53.0/streaming.ts": "04f85a25d5143758473521223e58003a59cc617fa57755e5a62ba96741cb50ef",
+    "https://deno.land/x/openai@v4.53.0/uploads.ts": "33857c766326193dd038ca77382f3b361ef92038a938de312f3f95aa77531a46",
+    "https://deno.land/x/openai@v4.53.0/version.ts": "93f94da5905e95a6632efbb8b0f0c56e16ce862de99f1a44f224c0972de3ec98"
+  },
+  "workspace": {
+    "dependencies": [
+      "jsr:@cliffy/command@^1.0.0-rc.7",
+      "jsr:@cliffy/prompt@^1.0.0-rc.7",
+      "jsr:@std/assert@1",
+      "jsr:@std/fmt@^1.0.3",
+      "jsr:@std/fs@^1.0.5",
+      "jsr:@std/path@^1.0.8"
+    ]
+  }
+}
