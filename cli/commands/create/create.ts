@@ -1,6 +1,4 @@
-import { ensureDir, ensureFile } from "@std/fs";
-import { join } from "@std/path";
-import { Input } from "@cliffy/prompt";
+import { ensureDir, join, Input } from "../../../deps.ts";
 
 // export async function createApp() {
 //   const withTailwind = options.withTailwind ??
@@ -28,18 +26,16 @@ export async function create(
   await ensureDir(srcDir);
 
   // Create and write to index.html
-  const indexPath = join(srcDir, "index.html");
-  const indexContent = `<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hello World</title>
-</head>
-<body>
-    <h1>Hello World</h1>
-</body>
-</html>`;
+  const indexPath = join(srcDir, "index.ts");
+  const indexContent = `
+    <template>
+      <h1>Hello World</h1>
+    </template>
+
+    <script>
+      
+    </script>
+  `;
 
   await Deno.writeTextFile(indexPath, indexContent);
 

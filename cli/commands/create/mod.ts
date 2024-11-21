@@ -1,4 +1,4 @@
-import { Command } from "@cliffy/command";
+import { Command } from "../../../deps.ts";
 import { create } from "./create.ts";
 
 await new Command()
