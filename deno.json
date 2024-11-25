@@ -1,9 +1,17 @@
 {
   "tasks": {
-    "dev": "deno run -A -r cli/commands/create/mod.ts",
-    "fmt": "deno fmt --watch"
+    "fmt": "deno fmt --watch",
+    "build": "deno run -A --watch=./hmr/hmr-client.ts build.ts"
   },
-
+  "imports": {
+    "@std/fs": "jsr:@std/fs@^1.0.5",
+    "@std/path": "jsr:@std/path@^1.0.8",
+    "@cliffy/command": "jsr:@cliffy/command@1.0.0-rc.7",
+    "@cliffy/prompt": "jsr:@cliffy/prompt@1.0.0-rc.7", 
+    "oxc-parser": "npm:oxc-parser@0.37.0",
+    "oxc-transform": "npm:oxc-transform@0.37.0"
+  },
+  "workspace": ["./cli/create", "./cli/serve"],
   "hakai": {
     "rootPage": "login"
   }
