@@ -1,10 +1,8 @@
 {
   "tasks": {
-    "dev": "deno run -A -r cli/commands/create/mod.ts",
-    "fmt": "deno fmt --watch"
+    "fmt": "deno fmt --watch",
+    "build": "deno run -A --watch=./hmr/hmr-client.ts build.ts"
   },
-
-  "hakai": {
-    "rootPage": "login"
-  }
+  "importMap": "import_map.prod.json",
+  "workspace": ["./cli", "./core", "./internals"]
 }

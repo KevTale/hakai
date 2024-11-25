@@ -1,0 +1,15 @@
+{
+  "name": "@hakai/cli",
+  "version": "0.0.2",
+  "exports": "./mod.ts",
+  "license": "MIT",
+  "publish": {
+    "include": [
+      "mod.ts",
+      "deno.json",
+      "README.md",
+      "serve/**",
+      "create/**"
+    ]
+  }
+}
