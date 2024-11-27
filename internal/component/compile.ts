@@ -2,6 +2,21 @@ import { parseSync } from "oxc-parser";
 
 type TemplateValue = string | number | boolean | null;
 
+export type PageContext = {
+  currentPath: string;
+  templateVars: Set<string>;
+  content: string;
+}
+
+function extractTemplateVariables(template: string): Set<string> {
+  const variables = new Set<string>();
+  const matches = template.matchAll(/\{\{\s*(\w+)\s*\}\}/g);
+  for (const match of matches) {
+    variables.add(match[1]);
+  }
+  return variables;
+}
+
 // Extract <template> and <script> from .kai file
 async function extractContent(sourceFilename: string) {
   if (!sourceFilename.endsWith(".kai")) {
@@ -20,7 +35,6 @@ async function extractContent(sourceFilename: string) {
   };
 }
 
-// Parse script and build context
 function buildContext(script: string): Record<string, TemplateValue> {
   const p = parseSync(script, { sourceFilename: "inline-script" });
   const context: Record<string, TemplateValue> = {};
@@ -47,7 +61,6 @@ function buildContext(script: string): Record<string, TemplateValue> {
   return context;
 }
 
-// Replace variables in template
 function interpolateTemplate(
   template: string,
   context: Record<string, TemplateValue>,
@@ -62,10 +75,14 @@ function interpolateTemplate(
   });
 }
 
-export async function createHtmlFromTemplate(
-  sourceFilename: string,
-): Promise<string> {
-  const { template, script } = await extractContent(sourceFilename);
-  const context = buildContext(script);
-  return interpolateTemplate(template, context);
+export async function compileKaiFile(currentPath: string): Promise<PageContext> {
+  const { template, script } = await extractContent(currentPath);
+  const templateVars = extractTemplateVariables(template);
+  const content = interpolateTemplate(template, buildContext(script));
+  
+  return {
+    currentPath,
+    templateVars,
+    content
+  };
 }

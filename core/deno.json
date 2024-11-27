@@ -1,9 +1,9 @@
 {
   "name": "@hakai/core",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "exports": "./mod.ts",
   "license": "MIT",
   "publish": {
-    "include": ["mod.ts", "deno.json", "reactivity/**"]
+    "include": ["mod.ts", "deno.json", "reactivity/**", "config/**"]
   }
 }

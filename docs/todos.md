@@ -1,2 +1,16 @@
-- [] Move stuff to JSR
+- [x] Move packages to JSR
+- [] Manage CI with GitHub Actions
+- [] Add .env management
 - [] HMR
+  - [x] Only update on correct changed file
+  - [x] Send new content to client
+  - [x] Handle socket closure
+  - [x] Works on multiple tabs
+  - [] Should only update the slice of the page that has changed
+- [] Check to see how to handle hakaiConfig
+- [] See how to execute functions in .kai <script> tags
+- [] Can declare components in design-system/components
+- [] Can declare components directly in pages
+- [] Can use components in other components and pages
+- [] Can build app
+- [] Can deploy app

@@ -1,12 +1,18 @@
-import {
-  createHtmlFromTemplate,
-  hmrClientScript,
-  setupHMR,
-} from "@hakai/internals";
+import { compileKaiFile } from "@hakai/internal";
+import { hmrClientScript, setupHMR } from "./hmr.ts";
+import type { HakaiConfig } from "./types.ts";
+import { resolvePagePath } from "./utils.ts";
 
-export function serve() {
+export function serve(config: HakaiConfig) {
   Deno.serve(async (req: Request) => {
     const { pathname } = new URL(req.url);
+
+    if (pathname === "/favicon.ico") {
+      const favicon = await Deno.readFile("favicon.ico");
+      return new Response(favicon, {
+        headers: { "content-type": "image/x-icon" },
+      });
+    }
 
     if (pathname === "/hmr-client.js") {
       return new Response(hmrClientScript, {
@@ -18,21 +24,21 @@ export function serve() {
     }
 
     if (pathname === "/hmr") {
-      return setupHMR(req);
+      return setupHMR(req, config);
     }
 
-    if (pathname !== "/") return new Response("not found", { status: 404 });
-
-    const html = await createHtmlFromTemplate("./features/home/page.kai");
+    const currentPath = resolvePagePath(pathname, config);
+    const { content } = await compileKaiFile(currentPath);
 
     const indexHtml = `
           <!DOCTYPE html>
           <html>
             <head>
               <script src="/hmr-client.js"></script>
+              <link rel="icon" type="image/x-icon" href="favicon.ico" />
             </head>
             <body>
-              ${html}
+              ${content}
             </body>
           </html>
         `;

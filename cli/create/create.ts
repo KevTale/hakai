@@ -29,13 +29,35 @@ export async function create(
 
   const denoJsonPath = join(appDir, "deno.json");
   const denoJsonContent = `{
-  "tasks": {
-    "serve": "deno run -A -r https://raw.githubusercontent.com/KevTale/hakai/refs/heads/main/serve/mod.ts"
-  }
-}`;
+    "tasks": {
+      "serve": "deno run -A -r https://raw.githubusercontent.com/KevTale/hakai/refs/heads/main/serve/mod.ts"
+    },
+    "imports": {
+      "@hakai/core": "jsr:@hakai/core@0.0.3"
+    }
+  }`;
+
+  const hakaiConfigPath = join(appDir, "hakai.config.ts");
+  const hakaiConfigContent = `
+import { hakaiConfig } from "@hakai/core";
+
+export default hakaiConfig({
+  rootPage: "home",
+});
+`;
+
+  const faviconPath = join(appDir, "favicon.ico");
+  const faviconContent = new Uint8Array([
+    0,0,1,0,1,0,16,16,0,0,1,0,32,0,68,3,
+    0,0,22,0,0,0,40,0,0,0,16,0,0,0,32,0,
+    0,0,1,0,32,0,0,0,0,0,0,3,0,0,0,0,
+    0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+  ]); 
 
   await Deno.writeTextFile(pagePath, pageContent);
   await Deno.writeTextFile(denoJsonPath, denoJsonContent);
+  await Deno.writeTextFile(hakaiConfigPath, hakaiConfigContent);
+  await Deno.writeFile(faviconPath, faviconContent);
 
   console.log(`Created new app at ${appDir}`);
 }
