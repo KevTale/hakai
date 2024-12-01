@@ -7,8 +7,63 @@ export type ProcessedKaiFile = {
   script: string;
 };
 
-// Extract <template> and <script> from .kai file
-async function extractContent(sourceFilename: string) {
+type KaiContent = {
+  template: string;
+  script: string;
+  style: string;
+};
+
+// paths = ["scopes/admin/dashboard.page.kai", "scopes/admin/dashboard_users.page.kai"]
+export async function processKaiFiles(paths: string[]): Promise<ProcessedKaiFile> {
+  if (paths.length === 0) {
+    throw new Error("No paths provided to compile");
+  }
+
+  // Process parent file
+  const parentPath = paths[0];
+  const parentSections = await parseKaiSections(parentPath);
+  const parentFilename = parentPath.split('/').pop()?.replace('.page.kai', '') || '';
+  const parentVariables = extractVariableNames(parentSections.script);
+  const prefixedParent = prefixVariables(parentSections, parentFilename, parentVariables);
+  const parentContext = buildContext(prefixedParent.script, parentVariables, parentFilename);
+  
+  if (paths.length === 1) {
+    // Si pas d'enfant, on supprime les slots
+    const template = prefixedParent.template.replace(/<slot\s*\/?>.*?<\/slot>|<slot\s*\/?>/g, '');
+    const content = interpolateTemplate(template, parentContext);
+    return {
+      content,
+      script: prefixedParent.script
+    };
+  }
+
+  // Process child files
+  let currentTemplate = prefixedParent.template;
+  let mergedScript = prefixedParent.script;
+  let mergedContext = parentContext;
+
+  for (let i = 1; i < paths.length; i++) {
+    const childContent = await parseKaiSections(paths[i]);
+    const childVariables = extractVariableNames(childContent.script);
+    const childFilename = paths[i].split('/').pop()?.replace('.page.kai', '') || '';
+    const prefixedChild = prefixVariables(childContent, childFilename, childVariables);
+    const childContext = buildContext(prefixedChild.script, childVariables, childFilename);
+
+    currentTemplate = currentTemplate.replace("<slot />", prefixedChild.template);
+    mergedContext = { ...mergedContext, ...childContext };
+    mergedScript = `${mergedScript}\n${prefixedChild.script}`;
+  }
+
+  const content = interpolateTemplate(currentTemplate, mergedContext);
+
+  return {
+    content,
+    script: mergedScript
+  };
+}
+
+// Extract <template>, <script> and <style> 
+async function parseKaiSections(sourceFilename: string) {
   if (!sourceFilename.endsWith(".kai")) {
     throw new Error(
       `Invalid file extension. Expected .kai file but got: ${sourceFilename}`
@@ -18,10 +73,11 @@ async function extractContent(sourceFilename: string) {
 
   const templateMatch = content.match(/<template>([\s\S]*?)<\/template>/);
   const scriptMatch = content.match(/<script>([\s\S]*?)<\/script>/);
-
+  const styleMatch = content.match(/<style>([\s\S]*?)<\/style>/);
   return {
     template: templateMatch ? templateMatch[1].trim() : "",
     script: scriptMatch ? scriptMatch[1].trim() : "",
+    style: styleMatch ? styleMatch[1].trim() : "",
   };
 }
 
@@ -42,60 +98,57 @@ function extractVariableNames(script: string): string[] {
   return variableNames;
 }
 
-function prefixVariables(content: { template: string, script: string }, filename: string): { template: string, script: string } {
-  const prefix = filename.replace(/[^a-zA-Z0-9]/g, '_');
-  const variableNames = extractVariableNames(content.script);
+function prefixVariables(content: KaiContent, filename: string, variables: string[]): KaiContent {
+  const snakeCaseFilename = filename.replace(/[^a-zA-Z0-9]/g, '_');
   
   let modifiedScript = content.script;
   let modifiedTemplate = content.template.trim();
   
-  // Vérifier si le template a un élément racine unique
-  const hasRootElement = /^<[^>]+>[\s\S]*<\/[^>]+>$/.test(modifiedTemplate) 
-    && !modifiedTemplate.match(/<[^>]+>/g)![1]?.startsWith('</');
-  
-  if (!hasRootElement) {
-    // Wrapper le template dans un div si pas d'élément racine unique
-    modifiedTemplate = `<div data-component-id="${prefix}">${modifiedTemplate}</div>`;
-  } else {
-    // Ajouter data-component-id au tag racine existant
-    modifiedTemplate = modifiedTemplate.replace(
-      /^(\s*<[^>]+)/,
-      `$1 data-component-id="${prefix}"`
-    );
-  }
+  // Ajouter data-page sur chaque nœud sauf les slots
+  modifiedTemplate = modifiedTemplate.replace(
+    /<([a-zA-Z][a-zA-Z0-9]*)([^>]*)>/g,
+    (match, tag, attributes) => {
+      // Ne pas ajouter data-page aux slots
+      if (tag.toLowerCase() === 'slot') {
+        return match;
+      }
+      return `<${tag}${attributes} data-page="${snakeCaseFilename}">`;
+    }
+  );
   
   // Préfixer les variables
-  for (const varName of variableNames) {
+  for (const varName of variables) {
     // Préfixe dans le script
     modifiedScript = modifiedScript.replace(
       new RegExp(`\\b${varName}\\b`, 'g'),
-      `${prefix}_${varName}`
+      `${snakeCaseFilename}_${varName}`
     );
     // Préfixe dans le template
     modifiedTemplate = modifiedTemplate.replace(
       new RegExp(`\\{\\{\\s*${varName}\\s*\\}\\}`, 'g'),
-      `{{ ${prefix}_${varName} }}`
+      `{{ ${snakeCaseFilename}_${varName} }}`
     );
   }
   
   return {
     template: modifiedTemplate,
-    script: modifiedScript
+    script: modifiedScript,
+    style: content.style
   };
 }
 
-function buildContext(script: string): Record<string, TemplateValue> {
-  const variableNames = extractVariableNames(script);
+function buildContext(script: string, variables: string[], prefix: string): Record<string, TemplateValue> {
   const context: Record<string, TemplateValue> = {};
 
-  for (const varName of variableNames) {
-    const regex = new RegExp(`const\\s+${varName}\\s*=\\s*([^;]+);`);
+  for (const varName of variables) {
+    const prefixedVarName = `${prefix}_${varName}`;
+    const regex = new RegExp(`const\\s+${prefixedVarName}\\s*=\\s*([^;]+);`);
     const match = script.match(regex);
     if (match) {
       try {
-        context[varName] = JSON.parse(match[1]) as TemplateValue;
+        context[prefixedVarName] = JSON.parse(match[1]) as TemplateValue;
       } catch {
-        console.warn(`Unsupported type for variable "${varName}"`);
+        console.warn(`Unsupported type for variable "${prefixedVarName}"`);
       }
     }
   }
@@ -117,45 +170,4 @@ function interpolateTemplate(
   });
 }
 
-export async function processKaiFiles(paths: string[]): Promise<ProcessedKaiFile> {
-  if (paths.length === 0) {
-    throw new Error("No paths provided to compile");
-  }
 
-  // Process parent file
-  const parentContent = await extractContent(paths[0]);
-  const parentFilename = paths[0].split('/').pop()?.replace('.page.kai', '') || '';
-  const prefixedParent = prefixVariables(parentContent, parentFilename);
-  const parentContext = buildContext(prefixedParent.script);
-  
-  if (paths.length === 1) {
-    const content = interpolateTemplate(prefixedParent.template, parentContext);
-    return {
-      content,
-      script: prefixedParent.script
-    };
-  }
-
-  // Process child files
-  let currentTemplate = prefixedParent.template;
-  let mergedScript = prefixedParent.script;
-  let mergedContext = parentContext;
-
-  for (let i = 1; i < paths.length; i++) {
-    const childContent = await extractContent(paths[i]);
-    const childFilename = paths[i].split('/').pop()?.replace('.page.kai', '') || '';
-    const prefixedChild = prefixVariables(childContent, childFilename);
-    const childContext = buildContext(prefixedChild.script);
-
-    currentTemplate = currentTemplate.replace("<slot />", prefixedChild.template);
-    mergedContext = { ...mergedContext, ...childContext };
-    mergedScript = `${mergedScript}\n${prefixedChild.script}`;
-  }
-
-  const content = interpolateTemplate(currentTemplate, mergedContext);
-
-  return {
-    content,
-    script: mergedScript
-  };
-}

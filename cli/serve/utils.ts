@@ -6,8 +6,8 @@ import { normalizePath } from "@hakai/internal";
  * 
  * For example:
  * - "/" → returns the root page file
- * - "/dashboard" → finds "dashboard.page.kai"
- * - "/dashboard/users" → finds both "dashboard.page.kai" and "dashboard_users.page.kai"
+ * - "/dashboard" → returns ["scopes/admin/dashboard.page.kai"]
+ * - "/dashboard/users" → returns ["scopes/admin/dashboard.page.kai", "scopes/admin/dashboard_users.page.kai"]
  * 
  * The function searches through all scope directories and returns an array of file paths
  * that match the URL segments. Pages must exist in the same scope to be considered valid.
@@ -27,9 +27,9 @@ export async function resolvePagePath(
     return [normalizePath("scopes", config.root.scope, `${config.root.page}.page.kai`)];
   }
 
-  // eg. /dashboard/overview -> ["dashboard", "overview"]
-  const segments = urlPath.slice(1).split('/');
-  
+  // eg. /dashboard/overview/ -> ["dashboard", "overview"]
+  const segments = urlPath.slice(1).split('/').filter(segment => segment !== '');
+
    // looping on each scope folder
    for await (const scope of Deno.readDir("./scopes")) {
     if (!scope.isDirectory) continue;

@@ -79,20 +79,16 @@ ws.onmessage = (event) => {
     const tempDiv = document.createElement('div');
     tempDiv.innerHTML = data.content;
 
-    // Pour chaque composant modifié
-    const updatedComponents = tempDiv.querySelectorAll('[data-component-id]');
-    updatedComponents.forEach(newComponent => {
-      const componentId = newComponent.getAttribute('data-component-id');
-      const existingComponent = document.querySelector(\`[data-component-id="\${componentId}"]\`);
-      
-      if (existingComponent) {
-        // Mise à jour granulaire du composant
-        updateNode(existingComponent, newComponent);
-      } else {
-        // Premier chargement : ajouter le composant au body
-        document.body.appendChild(newComponent);
+    // Premier chargement ou mise à jour complète
+    if (document.body.children.length === 0) {
+      // Ajouter tous les nœuds du template
+      while (tempDiv.firstChild) {
+        document.body.appendChild(tempDiv.firstChild);
       }
-    });
+    } else {
+      // Mise à jour des nœuds existants
+      updateNode(document.body, tempDiv);
+    }
 
     // Gestion du script
     const oldScript = document.querySelector('script[data-hmr]');
