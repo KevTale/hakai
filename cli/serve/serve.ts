@@ -1,9 +1,10 @@
-import { compileKaiFile } from "@hakai/internal";
+import type { HakaiConfig } from "@hakai/core";
+import { canBuild } from "@hakai/internal";
 import { hmrClientScript, setupHMR } from "./hmr.ts";
-import type { HakaiConfig } from "./types.ts";
-import { resolvePagePath } from "./utils.ts";
 
-export function serve(config: HakaiConfig) {
+export async function serve(config: HakaiConfig) {
+  await canBuild();
+
   Deno.serve(async (req: Request) => {
     const { pathname } = new URL(req.url);
 
@@ -27,24 +28,22 @@ export function serve(config: HakaiConfig) {
       return setupHMR(req, config);
     }
 
-    const currentPath = resolvePagePath(pathname, config);
-    const { content } = await compileKaiFile(currentPath);
-
-    const indexHtml = `
-          <!DOCTYPE html>
-          <html>
-            <head>
-              <script src="/hmr-client.js"></script>
-              <link rel="icon" type="image/x-icon" href="favicon.ico" />
-            </head>
-            <body>
-              ${content}
-            </body>
-          </html>
-        `;
-
-    return new Response(indexHtml, {
-      headers: { "content-type": "text/html; charset=utf-8" },
-    });
+    return new Response(
+      `
+  <!DOCTYPE html>
+  <html>
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <script src="/hmr-client.js"></script>
+      <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    </head>
+    <body></body>
+  </html>
+`,
+      {
+        headers: { "content-type": "text/html; charset=utf-8" },
+      }
+    );
   });
 }

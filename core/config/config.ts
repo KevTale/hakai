@@ -1,5 +1,8 @@
 export type HakaiConfig = {
-  rootPage: string;
+  root: {
+    scope: string;
+    page: string;
+  };
 };
 
 export function hakaiConfig(config: HakaiConfig): HakaiConfig {

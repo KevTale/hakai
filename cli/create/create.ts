@@ -9,14 +9,14 @@ export async function create(
     await Input.prompt("What's the name of your app?");
 
   const appDir = join(Deno.cwd(), name);
-  const featuresDir = join(appDir, "features");
-  const homeDir = join(featuresDir, "home");
+  const scopesDir = join(appDir, "scopes");
+  const homeDir = join(scopesDir, "home");
 
   await ensureDir(appDir);
-  await ensureDir(featuresDir);
+  await ensureDir(scopesDir);
   await ensureDir(homeDir);
 
-  const pagePath = join(homeDir, "page.kai");
+  const pagePath = join(homeDir, "home.page.kai");
   const pageContent = `
     <template>
       <h1>Hello {{ name }}</h1>
@@ -42,7 +42,10 @@ export async function create(
 import { hakaiConfig } from "@hakai/core";
 
 export default hakaiConfig({
-  rootPage: "home",
+  root: {
+    scope: "home",
+    page: "home",
+  },
 });
 `;
 

@@ -7,7 +7,9 @@
   - [x] Handle socket closure
   - [x] Works on multiple tabs
   - [] Should only update the slice of the page that has changed
-- [] Check to see how to handle hakaiConfig
+- [x] Check to see how to handle hakaiConfig
+- [] Handle nested pages
+- [] Handle layouts
 - [] See how to execute functions in .kai <script> tags
 - [] Can declare components in design-system/components
 - [] Can declare components directly in pages

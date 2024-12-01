@@ -1,9 +1,6 @@
+import type { HakaiConfig } from "@hakai/core";
 import { Command } from "@cliffy/command";
 import { serve } from "./serve.ts";
-
-type HakaiConfig = {
-  rootPage: string;
-};
 
 async function loadHakaiConfig(): Promise<HakaiConfig> {
   try {
@@ -13,7 +10,10 @@ async function loadHakaiConfig(): Promise<HakaiConfig> {
   } catch (error) {
     console.error("Failed to load hakai.config.ts:", error);
     return {
-      rootPage: "home"
+      root: {
+        scope: "home",
+        page: "home"
+      }
     };
   }
 }
