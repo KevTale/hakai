@@ -2,10 +2,11 @@
   "tasks": {
     "fmt": "deno fmt --watch"
   },
+  "version": "0.0.5",
   "imports": {
-    "@hakai/cli": "jsr:@hakai/cli@0.0.3",
-    "@hakai/core": "jsr:@hakai/core@0.0.3",
-    "@hakai/internal": "jsr:@hakai/internal@0.0.3",
+    "@hakai/cli": "jsr:@hakai/cli@0.0.5",
+    "@hakai/core": "jsr:@hakai/core@0.0.5",
+    "@hakai/internal": "jsr:@hakai/internal@0.0.5",
 
     "@std/fs": "jsr:@std/fs@^1.0.5",
     "@std/path": "jsr:@std/path@^1.0.8",

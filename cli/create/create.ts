@@ -33,7 +33,7 @@ export async function create(
       "serve": "deno run -A -r https://raw.githubusercontent.com/KevTale/hakai/refs/heads/main/serve/mod.ts"
     },
     "imports": {
-      "@hakai/core": "jsr:@hakai/core@0.0.3"
+      "@hakai/core": "jsr:@hakai/core@0.0.5"
     }
   }`;
 
