@@ -18,13 +18,13 @@ export async function create(
 
   const pagePath = join(homeDir, "home.page.kai");
   const pageContent = `
-    <template>
-      <h1>Hello {{ name }}</h1>
-    </template>
+<template>
+  <h1>Hello {{ name }}</h1>
+</template>
 
-    <script>
-      const name = "Hakai";
-    </script>
+<script>
+  const name = "Hakai";
+</script>
   `;
 
   const denoJsonPath = join(appDir, "deno.json");
@@ -33,7 +33,7 @@ export async function create(
       "serve": "deno run -A -r https://raw.githubusercontent.com/KevTale/hakai/refs/heads/main/serve/mod.ts"
     },
     "imports": {
-      "@hakai/core": "jsr:@hakai/core@0.0.5"
+      "@hakai/core": "jsr:@hakai/core@0.0.6"
     }
   }`;
 

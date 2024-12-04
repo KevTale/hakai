@@ -447,9 +447,9 @@
     "dependencies": [
       "jsr:@cliffy/command@1.0.0-rc.7",
       "jsr:@cliffy/prompt@1.0.0-rc.7",
-      "jsr:@hakai/cli@0.0.4",
-      "jsr:@hakai/core@0.0.4",
-      "jsr:@hakai/internal@0.0.4",
+      "jsr:@hakai/cli@0.0.5",
+      "jsr:@hakai/core@0.0.5",
+      "jsr:@hakai/internal@0.0.5",
       "jsr:@std/fs@^1.0.5",
       "jsr:@std/path@^1.0.8",
       "npm:oxc-parser@0.37.0"

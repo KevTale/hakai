@@ -1,18 +1,167 @@
-- [x] Move packages to JSR
-- [] Manage CI with GitHub Actions
-- [] Add .env management
+# Framework Foundation
 - [] HMR
-  - [x] Only update on correct changed file
-  - [x] Send new content to client
+  - [x] Setup websocket connection
   - [x] Handle socket closure
   - [x] Works on multiple tabs
-  - [] Should only update the slice of the page that has changed
-- [x] Check to see how to handle hakaiConfig
-- [] Handle nested pages
-- [] Handle layouts
-- [] See how to execute functions in .kai <script> tags
-- [] Can declare components in design-system/components
-- [] Can declare components directly in pages
-- [] Can use components in other components and pages
-- [] Can build app
-- [] Can deploy app
+  - [x] Send new content to client
+  - [x] Works with nested pages
+  - [x] Should only update the slice of the page that is affected
+  - [] Should update the <template> when any code that affects it is changed
+    - [] data from page's <script>
+    - [] data from scoped store
+    - [] data from global store
+    - [] style in the page
+    - [] component used in template
+    - [] props passed to components
+    - [] slots content
+    - [] layout changes
+    - [] imported utilities/functions used in template
+    - [] dynamic imports
+    - [] conditional rendering logic (@if, @for, etc.)
+- [] Pages
+  - [x] Basic page structure (<template>, <script>, <style>)
+  - [x] Handle nested pages
+  - [] Page-specific metadata
+  - [] Page transitions
+  - [] Page lifecycle hooks
+  - [] Page-level error boundaries
+- [] Components
+  - [] Can declare components in design-system/components
+  - [] Can declare components directly in pages
+  - [] Can use components in other components and pages
+  - [] Props validation
+  - [] Slots support
+  - [] Component lifecycle hooks
+- [] Routing
+  - [] Dynamic routes (/users/[id])
+  - [] Optional segments
+  - [] Catch-all routes
+  - [] Route groups
+  - [] Route protection/middleware
+- [] Layouts
+  - [] Global layouts
+  - [] Scope-specific layouts
+  - [] Page-specific layouts
+- [] State Management
+  - [] Implement state() function
+  - [] Handle reactivity
+  - [] Support operators (filter, map, debounce...)
+  - [] Support refs (#element)
+  - [] Support page lifecycle events (#page)
+- [] Forms
+  - [] Form validation
+    - [] Built-in validators
+    - [] Custom validators
+    - [] Async validation
+    - [] Cross-field validation
+  - [] Form state management
+    - [] Dirty/Pristine tracking
+    - [] Touched/Untouched tracking
+    - [] Error handling
+    - [] Submit handling
+  - [] Form controls
+    - [] Input bindings
+    - [] Select/Multi-select
+    - [] Checkboxes/Radio buttons
+    - [] Custom form controls
+  - [] Form arrays/groups
+    - [] Dynamic form fields
+    - [] Nested forms
+    - [] Form arrays
+- [] Testing
+  - [] Unit Testing
+    - [] Component testing
+    - [] Store testing
+    - [] Utils testing
+    - [] Custom matchers
+  - [] Integration Testing
+    - [] Page testing
+    - [] Navigation testing
+    - [] Form submission testing
+  - [] E2E Testing
+    - [] User flow testing
+    - [] API integration testing
+    - [] Performance testing
+  - [] Testing Utilities
+    - [] Test helpers
+    - [] Mocking utilities
+    - [] Snapshot testing
+    - [] Coverage reporting
+
+# Server & Data
+- [] Server Features
+  - [] Server-side rendering (SSR)
+  - [] Static site generation (SSG)
+  - [] Hydration strategies
+  - [] API routes
+  - [] Server actions/mutations
+  - [] Middleware support
+  - [] Incremental static regeneration
+- [] Data Fetching
+  - [] Built-in fetch wrapper
+  - [] Caching strategies
+  - [] Revalidation
+  - [] Optimistic updates
+
+  # Deployment & CI
+- [x] Use JSR
+- [] Deployment
+  - [] Can deploy app
+  - [] Edge runtime support
+  - [] Docker support
+- [] CI/CD
+  - [] Manage CI with GitHub Actions
+  - [] CI/CD templates
+
+
+# Build & Development
+- [] Build System
+  - [] Can build app
+  - [] Asset optimization
+  - [] Code splitting
+  - [] Tree shaking
+  - [] CSS/Style handling
+  - [] Static asset handling
+- [] Development Experience
+  - [] TypeScript support
+  - [] Dev tools/debugging
+  - [] Error overlay
+  - [] Performance monitoring
+  - [] Testing utilities
+  - [] Add .env management
+- [] IDE Support
+  - [] VSCode Hakai Language Extension
+    - [] Syntax highlighting for .kai files
+    - [] Autocompletion
+    - [] Formatting
+    - [] Diagnostics
+    - [] Go to definition
+    - [] Type checking
+    - [] Snippets
+  - [] Hakai Generation Extension
+    - [] Generate new scope
+    - [] Generate new page
+    - [] Generate new component
+    - [] Generate new store
+- [] Design System Tools
+  - [] Built-in Storybook-like UI
+    - [] Component playground
+    - [] Props documentation
+    - [] Theme visualization
+    - [] Design tokens management
+    - [] Responsive testing
+    - [] Accessibility checks
+- [] AI Integration
+  - [] Research & Development
+    - [] AI-powered code completion
+    - [] Component suggestions
+    - [] Code refactoring suggestions
+    - [] Bug detection and fixes
+    - [] Documentation generation
+    - [] Performance optimization suggestions
+    - [] Accessibility recommendations
+  - [] Implementation
+    - [] Local AI models support
+    - [] Cloud AI services integration
+    - [] Privacy-first approach
+    - [] Customizable AI features

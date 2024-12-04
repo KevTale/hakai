@@ -2,6 +2,7 @@ import type { HakaiConfig } from "@hakai/core";
 import { canBuild } from "@hakai/internal";
 import { hmrClientScript, setupHMR } from "./hmr/mod.ts";
 
+
 export async function serve(config: HakaiConfig) {
   await canBuild();
 

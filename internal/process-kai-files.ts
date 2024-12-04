@@ -16,7 +16,7 @@ type KaiContent = {
 // paths = ["scopes/admin/dashboard.page.kai", "scopes/admin/dashboard_users.page.kai"]
 export async function processKaiFiles(paths: string[]): Promise<ProcessedKaiFile> {
   if (paths.length === 0) {
-    throw new Error("No paths provided to compile");
+    throw new KaiProcessError("No paths provided to compile");
   }
 
   // Process parent file
@@ -28,11 +28,9 @@ export async function processKaiFiles(paths: string[]): Promise<ProcessedKaiFile
   const parentContext = buildContext(prefixedParent.script, parentVariables, parentFilename);
   
   if (paths.length === 1) {
-    // Si pas d'enfant, on supprime les slots
     const template = prefixedParent.template.replace(/<slot\s*\/?>.*?<\/slot>|<slot\s*\/?>/g, '');
-    const content = interpolateTemplate(template, parentContext);
     return {
-      content,
+      content: interpolateTemplate(template, parentContext, parentFilename),
       script: prefixedParent.script
     };
   }
@@ -54,10 +52,8 @@ export async function processKaiFiles(paths: string[]): Promise<ProcessedKaiFile
     mergedScript = `${mergedScript}\n${prefixedChild.script}`;
   }
 
-  const content = interpolateTemplate(currentTemplate, mergedContext);
-
   return {
-    content,
+    content: interpolateTemplate(currentTemplate, mergedContext, parentFilename),
     script: mergedScript
   };
 }
@@ -158,16 +154,50 @@ function buildContext(script: string, variables: string[], prefix: string): Reco
 
 function interpolateTemplate(
   template: string,
-  context: Record<string, TemplateValue>
-) {
-  return template.replace(/\{\{\s*(\w+)\s*\}\}/g, (match, varName) => {
+  context: Record<string, TemplateValue>,
+  filename: string
+): string {
+  let result = template;
+  const matches = template.match(/\{\{\s*(\w+)\s*\}\}/g);
+  
+  if (!matches) {
+    return template;
+  }
+
+  for (const match of matches) {
+    const varName = match.match(/\{\{\s*(\w+)\s*\}\}/)?.[1];
+    if (!varName) continue;
+
     if (context[varName] === undefined) {
-      throw new Error(
-        `Template variable "${varName}" is not defined in context`
+      const offset = template.indexOf(match);
+      const lines = template.slice(0, offset).split('\n');
+      const line = lines.length;
+      const column = lines[lines.length - 1].length + 1;
+
+      throw new KaiProcessError(
+        `Template variable "${varName}" is not defined`,
+        filename,
+        line,
+        column
       );
     }
-    return String(context[varName]); // Convert value to string for interpolation
-  });
+
+    result = result.replace(match, String(context[varName]));
+  }
+
+  return result;
+}
+
+export class KaiProcessError extends Error {
+  constructor(
+    message: string,
+    public file?: string,
+    public line?: number,
+    public column?: number
+  ) {
+    super(message);
+    this.name = 'KaiProcessError';
+  }
 }
 
 

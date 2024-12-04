@@ -2,7 +2,7 @@ import { Command } from "@cliffy/command";
 
 const command = new Command()
   .name("hakai")
-  .version("0.0.5")
+  .version("0.0.6")
   .description("Hakai CLI")
   // Create command
   .command("create", "Create a new Hakai app")

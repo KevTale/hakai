@@ -1,11 +1,12 @@
-import type { ProcessedKaiFile } from "@hakai/internal";
-
 /**
  * Represents the context maintained for each connected client.
  * This includes the current state of their page and its dependencies.
  */
 export type ClientContext = {
-  processedKaiFile: ProcessedKaiFile;
+  processedKaiFile: {
+    content: string;
+    script: string;
+  };
   paths: string[];
 };
 
