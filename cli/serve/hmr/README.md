@@ -38,6 +38,7 @@ The HMR system is split into several components:
 ## Message Types
 
 ### Client to Server:
+
 ```typescript
 {
   type: "init";
@@ -46,26 +47,28 @@ The HMR system is split into several components:
 ```
 
 ### Server to Client:
+
 ```typescript
 {
   type: "update";
   payload: {
     content: string; // New HTML content
     script: string; // New JavaScript code
-  };
+  }
 }
 // or
 {
   type: "error";
   payload: {
     message: string; // Error message
-  };
+  }
 }
 ```
 
 ## DOM Update Strategy
 
 The client-side DOM update follows these steps:
+
 1. Create a temporary div with new content
 2. Compare and update existing nodes recursively
 3. Handle attribute changes
@@ -97,4 +100,4 @@ The client-side DOM update follows these steps:
 
 - Only affected clients receive updates
 - DOM updates are optimized to minimize reflows
-- Script re-execution is scoped to prevent global pollution 
+- Script re-execution is scoped to prevent global pollution

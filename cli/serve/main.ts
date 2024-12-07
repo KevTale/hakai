@@ -1,9 +1,7 @@
-import type { HakaiConfig } from "@hakai/core";
-import { canBuild } from "@hakai/internal";
+import { canBuild, loadHakaiConfig } from "@hakai/internal";
 import { hmrClientScript, setupHMR } from "./hmr/mod.ts";
 
-
-export async function serve(config: HakaiConfig) {
+export async function serve() {
   await canBuild();
 
   Deno.serve(async (req: Request) => {
@@ -26,7 +24,8 @@ export async function serve(config: HakaiConfig) {
     }
 
     if (pathname === "/hmr") {
-      return setupHMR(req, config);
+      const hakaiConfig = await loadHakaiConfig();
+      return setupHMR(req, hakaiConfig);
     }
 
     return new Response(
@@ -44,7 +43,7 @@ export async function serve(config: HakaiConfig) {
 `,
       {
         headers: { "content-type": "text/html; charset=utf-8" },
-      }
+      },
     );
   });
 }

@@ -203,4 +203,41 @@ ws.onmessage = (event) => {
     }
   }
 };
-`; 
+
+// Gestionnaire de navigation
+async function handleNavigate(event, path) {
+  event.preventDefault();
+  
+  try {
+    const response = await fetch(\`/_hakai/page?path=\${encodeURIComponent(path)}\`);
+    if (!response.ok) throw new Error('Navigation failed');
+    
+    const data = await response.json();
+    history.pushState({}, '', path);
+    
+    // Mettre à jour le contenu
+    const tempDiv = document.createElement('div');
+    tempDiv.innerHTML = data.payload.content;
+    updateNode(document.body, tempDiv);
+
+    // Mettre à jour le script
+    const oldScript = document.querySelector('script[data-hmr]');
+    if (oldScript) oldScript.remove();
+
+    const scriptEl = document.createElement('script');
+    scriptEl.setAttribute('data-hmr', 'true');
+    scriptEl.textContent = \`(function() {
+      \${data.payload.script}
+    })();\`;
+    document.body.appendChild(scriptEl);
+  } catch (error) {
+    errorOverlay.show('Navigation failed: ' + error.message);
+  }
+}
+
+// Gérer le bouton retour du navigateur
+window.addEventListener('popstate', () => {
+  const path = location.pathname;
+  handleNavigate({ preventDefault: () => {} }, path);
+});
+`;

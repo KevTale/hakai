@@ -1,3 +1,3 @@
-export * from "./can-build.ts";
-export { processKaiFiles, type ProcessedKaiFile, KaiProcessError } from "./process-kai-files.ts";
+export * from "./build/can-build.ts";
+export { KaiProcessError, type ProcessedKaiFile, processKaiFiles } from "./compile-kai/main.ts";
 export * from "./utils/mod.ts";

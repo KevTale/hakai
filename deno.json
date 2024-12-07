@@ -14,5 +14,8 @@
     "@cliffy/prompt": "jsr:@cliffy/prompt@1.0.0-rc.7",
     "oxc-parser": "npm:oxc-parser@0.37.0"
   },
-  "workspace": ["./cli", "./core", "./internal"]
+  "workspace": ["./cli", "./core", "./internal"],
+  "fmt": {
+    "lineWidth": 120
+  }
 }

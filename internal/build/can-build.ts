@@ -11,10 +11,8 @@ async function validateUniquePageNames() {
 
       if (pageNames.has(pageName)) {
         throw new Error(
-          `Duplicate page name "${pageName}" found in scopes "${
-            scope.name
-          }" and "${pageNames.get(pageName)}". ` +
-            `Page names must be unique across all scopes.`
+          `Duplicate page name "${pageName}" found in scopes "${scope.name}" and "${pageNames.get(pageName)}". ` +
+            `Page names must be unique across all scopes.`,
         );
       }
 

@@ -25,4 +25,4 @@ export type WebSocketMessage = {
   payload: {
     message: string;
   };
-}; 
+};

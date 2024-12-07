@@ -1,4 +1,5 @@
 # Framework Foundation
+
 - [] HMR
   - [x] Setup websocket connection
   - [x] Handle socket closure
@@ -33,6 +34,7 @@
   - [] Slots support
   - [] Component lifecycle hooks
 - [] Routing
+  - [] Can navigate between pages
   - [] Dynamic routes (/users/[id])
   - [] Optional segments
   - [] Catch-all routes
@@ -89,6 +91,7 @@
     - [] Coverage reporting
 
 # Server & Data
+
 - [] Server Features
   - [] Server-side rendering (SSR)
   - [] Static site generation (SSG)
@@ -113,8 +116,8 @@
   - [] Manage CI with GitHub Actions
   - [] CI/CD templates
 
-
 # Build & Development
+
 - [] Build System
   - [] Can build app
   - [] Asset optimization
