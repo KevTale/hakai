@@ -23,7 +23,7 @@ export async function findComponentDependencies(
       const components = match[1].split(",").map((c) => c.trim());
       const importPath = match[2];
 
-      for (const component of components) {
+      for (const _component of components) {
         // Essayer d'abord de résoudre relativement au fichier courant
         let componentPath = normalizePath(
           dirname(filePath),
@@ -54,4 +54,4 @@ export async function findComponentDependencies(
   }
 
   return Array.from(componentPaths);
-} 
+}

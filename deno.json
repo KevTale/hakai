@@ -1,6 +1,7 @@
 {
   "tasks": {
-    "fmt": "deno fmt --watch"
+    "fmt": "deno fmt --watch",
+    "check": "deno fmt --check cli core internal && deno lint cli core internal && deno check cli core internal"
   },
   "version": "0.0.6",
   "imports": {

@@ -5,4 +5,4 @@ export function catchError<T>(
     (value) => [undefined, value],
     (error) => [error, undefined],
   );
-} 
+}
