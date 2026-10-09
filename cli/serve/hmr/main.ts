@@ -90,7 +90,7 @@ function handleSocketClosure(
  */
 function setupAppFileSystemWatcher(clientContexts: Map<WebSocket, ClientContext>): Deno.FsWatcher {
   const watcher = Deno.watchFs("./scopes");
-  let debounceTimer: number | null = null;
+  let debounceTimer: ReturnType<typeof setTimeout> | null = null;
 
   (async () => {
     for await (const event of watcher) {

@@ -1,6 +1,7 @@
 # Hot Module Replacement (HMR)
 
-This folder contains the implementation of Hot Module Replacement for the Hakai framework. HMR enables real-time updates of the application without requiring a full page reload.
+This folder contains the implementation of Hot Module Replacement for the Hakai framework. HMR enables real-time updates
+of the application without requiring a full page reload.
 
 ## Architecture Overview
 

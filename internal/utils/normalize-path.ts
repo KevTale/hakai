@@ -11,4 +11,4 @@ import { join, normalize } from "@std/path";
  */
 export function normalizePath(...segments: string[]): string {
   return normalize(join(...segments)).replace(/\\/g, "/");
-} 
+}
